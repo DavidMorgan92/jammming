@@ -72,12 +72,24 @@ const Spotify = {
 			.then(() => {
 				return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
 					method: 'POST',
-					headers: headers
+					headers: headers,
+					body: JSON.stringify({
+						name: name
+					})
 				});
 			})
 			.then(response => response.json())
 			.then(jsonResponse => {
 				return jsonResponse.id;
+			})
+			.then(playlistId => {
+				return fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+					method: 'POST',
+					headers: headers,
+					body: JSON.stringify({
+						uris: trackUris
+					})
+				});
 			});
 	}
 };
