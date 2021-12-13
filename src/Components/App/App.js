@@ -11,6 +11,18 @@ export class App extends React.Component {
 			playlistName: '',
 			playlistTracks: []
 		};
+
+		// Bind event handlers
+		this.addTrack = this.addTrack.bind(this);
+	}
+
+	addTrack(track) {
+		// If track ID is not already in the playlist
+		if (!this.state.playlistTracks.some(t => t.id === track.id)) {
+			// Add track to playlist
+			const newPlaylist = this.state.playlistTracks.concat([track]);
+			this.setState({playlistTracks: newPlaylist});
+		}
 	}
 
 	render() {
@@ -20,7 +32,7 @@ export class App extends React.Component {
 				<div className="App">
 					{/*<!-- Add a SearchBar component -->*/}
 					<div className="App-playlist">
-						<SearchResults searchResults={this.state.searchResults} />
+						<SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
 						<Playlist name={this.state.playlistName} tracks={this.state.playlistTracks} />
 					</div>
 				</div>
