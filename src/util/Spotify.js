@@ -19,6 +19,33 @@ const Spotify = {
 		}
 
 		return userAccessToken;
+	},
+
+	search(term) {
+		fetch(
+			`https://api.spotify.com/v1/search?type=track&q=${term}`,
+			{
+				headers: {
+					'Authorization': this.getAccessToken()
+				}
+			}
+		)
+			.then(response => {
+				return response.json();
+			})
+			.then(jsonResponse => {
+				console.log(jsonResponse);
+				const tracks = jsonResponse.items.map(track => {
+					return {
+						id: track.id,
+						name: track.name,
+						artist: track.artists[0].name,
+						album: track.album.name,
+						uri: track.uri
+					};
+				});
+				return tracks;
+			});
 	}
 };
 
