@@ -50,6 +50,35 @@ const Spotify = {
 				});
 				return tracks;
 			});
+	},
+
+	savePlaylist(name, trackUris) {
+		if (!name || !trackUris)
+			return;
+
+		const token = this.getAccessToken();
+		const headers = {
+			'Authorization': `Bearer ${token}`
+		};
+		let userId = '';
+
+		return fetch('https://api.spotify.com/v1/me', {
+			headers: headers
+		})
+			.then(response => response.json())
+			.then(jsonResponse => {
+				userId = jsonResponse.id;
+			})
+			.then(() => {
+				return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+					method: 'POST',
+					headers: headers
+				});
+			})
+			.then(response => response.json())
+			.then(jsonResponse => {
+				return jsonResponse.id;
+			});
 	}
 };
 
