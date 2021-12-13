@@ -42,7 +42,14 @@ export class App extends React.Component {
 	}
 
 	savePlaylist() {
-
+		const trackUris = this.state.playlistTracks.map(t => t.uri);
+		Spotify.savePlaylist(this.state.playlistName, trackUris)
+			.then(() => {
+				this.setState({
+					playlistName: 'New Playlist',
+					playlistTracks: []
+				});
+			});
 	}
 
 	search(searchTerm) {
