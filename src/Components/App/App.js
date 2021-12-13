@@ -14,6 +14,7 @@ export class App extends React.Component {
 
 		// Bind event handlers
 		this.addTrack = this.addTrack.bind(this);
+		this.removeTrack = this.removeTrack.bind(this);
 	}
 
 	addTrack(track) {
@@ -25,6 +26,12 @@ export class App extends React.Component {
 		}
 	}
 
+	removeTrack(track) {
+		// Remove track with given ID from playlist
+		const newPlaylist = this.state.playlistTracks.filter(t => t.id !== track.id);
+		this.setState({playlistTracks: newPlaylist});
+	}
+
 	render() {
 		return (
 			<div>
@@ -32,8 +39,15 @@ export class App extends React.Component {
 				<div className="App">
 					{/*<!-- Add a SearchBar component -->*/}
 					<div className="App-playlist">
-						<SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-						<Playlist name={this.state.playlistName} tracks={this.state.playlistTracks} />
+						<SearchResults
+							searchResults={this.state.searchResults}
+							onAdd={this.addTrack}
+						/>
+						<Playlist
+							name={this.state.playlistName}
+							tracks={this.state.playlistTracks}
+							onRemove={this.removeTrack}
+						/>
 					</div>
 				</div>
 			</div>

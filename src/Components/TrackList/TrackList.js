@@ -5,7 +5,12 @@ import { Track } from '../Track/Track';
 export class TrackList extends React.Component {
 	render() {
 		const tracks = this.props.tracks.map(
-			track => <Track track={track} onAdd={this.props.onAdd} />
+			track => <Track
+				track={track}
+				onAdd={this.props.onAdd}
+				onRemove={this.props.onRemove}
+				isRemoval={this.props.isRemoval}
+			/>
 		);
 
 		return (
