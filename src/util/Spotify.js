@@ -25,17 +25,23 @@ const Spotify = {
 	},
 
 	search(term) {
+		if (!this.getAccessToken())
+			return Promise.reject('Waiting for access token refresh');
+
 		return fetch(
 			`https://api.spotify.com/v1/search?type=track&q=${term}`,
 			{
 				headers: {
-					'Authorization': `Bearer ${this.getAccessToken()}`,
+					'Authorization': `Bearer ${userAccessToken}`,
 					'Content-Type': 'application/json'
 				}
 			}
 		)
 			.then(response => {
-				return response.json();
+				if (response.ok)
+					return response.json();
+
+				return Promise.reject('Bad request');
 			})
 			.then(jsonResponse => {
 				console.log(jsonResponse);
