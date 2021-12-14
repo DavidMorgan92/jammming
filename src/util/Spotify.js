@@ -1,5 +1,5 @@
 const clientId = '75c552e1b9104a95a609e654a1828962';
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'https://jammming-dmorg.surge.sh/';
 
 let userAccessToken = '';
 
