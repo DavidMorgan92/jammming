@@ -1,5 +1,6 @@
 const clientId = '75c552e1b9104a95a609e654a1828962';
-const redirectUri = 'https://jammming-dmorg.surge.sh/';
+//const redirectUri = 'https://jammming-dmorg.surge.sh/';
+const redirectUri = 'http://localhost:3000/';
 
 let userAccessToken = '';
 
@@ -97,6 +98,19 @@ const Spotify = {
 					})
 				});
 			});
+	},
+
+	getPreviewUrl(trackId) {
+		const token = this.getAccessToken();
+		const headers = {
+			'Authorization': `Bearer ${token}`
+		};
+
+		return fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
+			headers: headers
+		})
+			.then(response => response.json())
+			.then(jsonResponse => jsonResponse.preview_url);
 	}
 };
 
