@@ -3,6 +3,7 @@ import React from 'react';
 import { SearchResults } from '../SearchResults/SearchResults';
 import { Playlist } from '../Playlist/Playlist';
 import { SearchBar } from '../SearchBar/SearchBar';
+import { SamplePlayer } from '../SamplePlayer/SamplePlayer';
 import Spotify from '../../util/Spotify';
 
 export class App extends React.Component {
@@ -68,6 +69,7 @@ export class App extends React.Component {
 				<h1>Ja<span className="highlight">mmm</span>ing</h1>
 				<div className="App">
 					<SearchBar onSearch={this.search} />
+					<SamplePlayer />
 					<div className="App-playlist">
 						<SearchResults
 							searchResults={this.state.searchResults}
