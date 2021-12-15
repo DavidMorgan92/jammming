@@ -5,7 +5,7 @@ export class SamplePlayer extends React.Component {
 	render() {
 		return (
 			<div className="SamplePlayer">
-				<audio autoplay controls src={this.props.src} />
+				<audio autoPlay controls src={this.props.src} />
 			</div>
 		);
 	}
