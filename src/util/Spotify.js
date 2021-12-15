@@ -97,6 +97,19 @@ const Spotify = {
 					})
 				});
 			});
+	},
+
+	getPreviewUrl(trackId) {
+		const token = this.getAccessToken();
+		const headers = {
+			'Authorization': `Bearer ${token}`
+		};
+
+		return fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
+			headers: headers
+		})
+			.then(response => response.json())
+			.then(jsonResponse => jsonResponse.preview_url);
 	}
 };
 

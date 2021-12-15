@@ -3,6 +3,7 @@ import React from 'react';
 import { SearchResults } from '../SearchResults/SearchResults';
 import { Playlist } from '../Playlist/Playlist';
 import { SearchBar } from '../SearchBar/SearchBar';
+import { SamplePlayer } from '../SamplePlayer/SamplePlayer';
 import Spotify from '../../util/Spotify';
 
 export class App extends React.Component {
@@ -11,7 +12,8 @@ export class App extends React.Component {
 		this.state = {
 			searchResults: [],
 			playlistName: 'New Playlist',
-			playlistTracks: []
+			playlistTracks: [],
+			sampleTrackSrc: ''
 		};
 
 		// Bind event handlers
@@ -20,6 +22,7 @@ export class App extends React.Component {
 		this.updatePlaylistName = this.updatePlaylistName.bind(this);
 		this.savePlaylist = this.savePlaylist.bind(this);
 		this.search = this.search.bind(this);
+		this.handleTrackClick = this.handleTrackClick.bind(this);
 	}
 
 	addTrack(track) {
@@ -62,17 +65,26 @@ export class App extends React.Component {
 			});
 	}
 
+	handleTrackClick(track) {
+		Spotify.getPreviewUrl(track.id)
+			.then(previewUrl => {
+				this.setState({sampleTrackSrc: previewUrl});
+			});
+	}
+
 	render() {
 		return (
 			<div>
 				<h1>Ja<span className="highlight">mmm</span>ing</h1>
 				<div className="App">
 					<SearchBar onSearch={this.search} />
+					<SamplePlayer src={this.state.sampleTrackSrc} />
 					<div className="App-playlist">
 						<SearchResults
 							searchResults={this.state.searchResults}
 							onAdd={this.addTrack}
 							onSearch={this.search}
+							onTrackClick={this.handleTrackClick}
 						/>
 						<Playlist
 							name={this.state.playlistName}
