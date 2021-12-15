@@ -1,5 +1,5 @@
 const clientId = '75c552e1b9104a95a609e654a1828962';
-const redirectUri = 'https://jammming-dmorg.surge.sh/';
+const redirectUri = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://eager-tereshkova-546b71.netlify.app/';
 
 let userAccessToken = '';
 
